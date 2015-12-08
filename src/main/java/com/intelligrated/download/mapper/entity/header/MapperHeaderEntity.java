@@ -1,8 +1,10 @@
-package com.intelligrated.download.mapper.entity;
+package com.intelligrated.download.mapper.entity.header;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
+
+import com.intelligrated.download.mapper.entity.AbstractEntity;
 /**
  * Represents the def_down_up table mapping.
  * 

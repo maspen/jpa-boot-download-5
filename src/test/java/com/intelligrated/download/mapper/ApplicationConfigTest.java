@@ -7,7 +7,7 @@ import org.springframework.context.annotation.AnnotationConfigApplicationContext
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import com.intelligrated.download.mapper.ApplicationConfig;
-import com.intelligrated.download.mapper.entity.MapperHeaderRepository;
+import com.intelligrated.download.mapper.repo.header.MapperHeaderRepository;
 
 public class ApplicationConfigTest {
 

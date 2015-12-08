@@ -7,8 +7,8 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 
-import com.intelligrated.download.mapper.entity.MapperHeaderEntity;
-import com.intelligrated.download.mapper.entity.MapperHeaderRepository;
+import com.intelligrated.download.mapper.entity.header.MapperHeaderEntity;
+import com.intelligrated.download.mapper.repo.header.MapperHeaderRepository;
 
 @SpringBootApplication
 public class Application {

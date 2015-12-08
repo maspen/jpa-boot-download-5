@@ -1,4 +1,4 @@
-package com.intelligrated.download.mapper.entity;
+package com.intelligrated.download.mapper.repo.header;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -13,6 +13,8 @@ import org.springframework.test.context.ContextConfiguration;
 
 import com.intelligrated.download.mapper.AbstractIntegrationTest;
 import com.intelligrated.download.mapper.ApplicationConfig;
+import com.intelligrated.download.mapper.entity.header.MapperHeaderEntity;
+import com.intelligrated.download.mapper.repo.header.MapperHeaderRepository;
 
 @ContextConfiguration(classes = ApplicationConfig.class)
 public class MapperHeaderRepositoryIntTestUsingHOTDataOutOfOrder extends AbstractIntegrationTest {
@@ -27,6 +29,10 @@ public class MapperHeaderRepositoryIntTestUsingHOTDataOutOfOrder extends Abstrac
 		return new ClassPathResource("test-HOT-out-of-order-data.sql");
 	}
 	
+	/**
+	 * the .sql file contains records with 'index start' that are not sequentially in order (on 
+	 * purpose). this just check that when this file is loaded, this is the case.
+	 */
 	@Test
 	public void getAllRecordsEnsureStartIndexOutOfOrder() {
 		List<MapperHeaderEntity> entityList = repository.getByRecordCode("1");
@@ -48,6 +54,16 @@ public class MapperHeaderRepositoryIntTestUsingHOTDataOutOfOrder extends Abstrac
 		public int compare(MapperHeaderEntity o1, MapperHeaderEntity o2) {
 			return o1.getIndexStart().compareTo(o2.getIndexStart());
 		}
-		
+	}
+	
+	/**
+	 * Want to test {@link MapperHeaderRepository#getByRecordCodeOrderByIndexStart(String)}
+	 * to ensure that even an out-of-order file that creates the db will not prevent
+	 * entities from being returned in index start order.
+	 */
+	@Test
+	public void getByRecordCodeOrderedByIndexStart() {
+		List<MapperHeaderEntity> entityList = repository.getByRecordCodeOrderByIndexStart("1");
+		Assert.assertTrue(listOutOfOrder(entityList));
 	}
 }

@@ -1,8 +1,10 @@
-package com.intelligrated.download.mapper.entity;
+package com.intelligrated.download.mapper.repo.header;
 
 import java.util.List;
 
 import org.springframework.data.repository.CrudRepository;
+
+import com.intelligrated.download.mapper.entity.header.MapperHeaderEntity;
 
 public interface MapperHeaderRepository extends CrudRepository<MapperHeaderEntity, Long> {
 	

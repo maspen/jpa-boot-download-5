@@ -1,4 +1,4 @@
-package com.intelligrated.download.mapper.entity;
+package com.intelligrated.download.mapper.repo.header;
 
 import java.util.List;
 
@@ -10,6 +10,8 @@ import org.springframework.test.context.ContextConfiguration;
 
 import com.intelligrated.download.mapper.AbstractIntegrationTest;
 import com.intelligrated.download.mapper.ApplicationConfig;
+import com.intelligrated.download.mapper.entity.header.MapperHeaderEntity;
+import com.intelligrated.download.mapper.repo.header.MapperHeaderRepository;
 
 @ContextConfiguration(classes = ApplicationConfig.class)
 public class MapperHeaderRepositoryIntTestUsingHOTData extends AbstractIntegrationTest {
