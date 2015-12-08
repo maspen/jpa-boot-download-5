@@ -4,10 +4,10 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
 
-import com.intelligrated.download.mapper.entity.MapperEntity;
+import com.intelligrated.download.mapper.entity.MapperHeaderEntity;
 
 @Configuration
-@ComponentScan(basePackageClasses = MapperEntity.class)
+@ComponentScan(basePackageClasses = MapperHeaderEntity.class)
 @Import(InfrastructureConfig.class)
 public class JpaConfig {
 

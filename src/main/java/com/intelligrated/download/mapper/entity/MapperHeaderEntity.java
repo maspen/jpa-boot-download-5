@@ -24,8 +24,8 @@ import javax.persistence.Table;
  */
 @SuppressWarnings("serial")
 @Entity
-@Table(name = MapperEntity.tableName)
-public class MapperEntity extends AbstractEntity {
+@Table(name = MapperHeaderEntity.tableName)
+public class MapperHeaderEntity extends AbstractEntity {
 	public static final String tableName = "def_down_up";
 	
 	@Column(name = "field_name")
@@ -49,62 +49,82 @@ public class MapperEntity extends AbstractEntity {
 	@Column(name = "record_code")
 	private String recordCode;
 	
+		
 	public String getFieldName() {
 		return fieldName;
 	}
+
 
 	public void setFieldName(String fieldName) {
 		this.fieldName = fieldName;
 	}
 
+
 	public String getFieldTitle() {
 		return fieldTitle;
 	}
+
 
 	public void setFieldTitle(String fieldTitle) {
 		this.fieldTitle = fieldTitle;
 	}
 
+
 	public String getFieldTableName() {
 		return fieldTableName;
 	}
+
 
 	public void setFieldTableName(String fieldTableName) {
 		this.fieldTableName = fieldTableName;
 	}
 
+
 	public Integer getIndexStart() {
 		return indexStart;
 	}
+
 
 	public void setIndexStart(Integer indexStart) {
 		this.indexStart = indexStart;
 	}
 
+
 	public Integer getIndexLength() {
 		return indexLength;
 	}
+
 
 	public void setIndexLength(Integer indexLength) {
 		this.indexLength = indexLength;
 	}
 
+
 	public String getDataType() {
 		return dataType;
 	}
+
 
 	public void setDataType(String dataType) {
 		this.dataType = dataType;
 	}
 
+
 	public String getRecordCode() {
 		return recordCode;
 	}
 
+
 	public void setRecordCode(String recordCode) {
 		this.recordCode = recordCode;
 	}
-	
+
+
+	public static String getTablename() {
+		return tableName;
+	}
+
+
 	@Override
 	public String toString() {
 		return String.format(

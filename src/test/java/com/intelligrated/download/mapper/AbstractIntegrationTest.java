@@ -23,10 +23,19 @@ public abstract class AbstractIntegrationTest {
 	/**
 	 * populates H2 db from src/test/resources/test-data.sql
 	 */
+//	static String resourcePath = "test-data.sql";
+	ClassPathResource classpathResource = new ClassPathResource("test-data.sql");
+	
+//	static {
+//		setClasspathResourcePath(resourcePath);
+//	}
+	
 	@Before
 	public void setup() {
 		ResourceDatabasePopulator populator = new ResourceDatabasePopulator();
-		populator.addScript(new ClassPathResource("test-data.sql"));
+		//populator.addScript(new ClassPathResource("test-data.sql"));
+		
+		populator.addScript(getClassPathResource());
 		Connection connection = null;
 		
 		try {
@@ -39,5 +48,9 @@ public abstract class AbstractIntegrationTest {
 				DataSourceUtils.releaseConnection(connection, dataSource);
 			}
 		}
+	}
+	
+	protected ClassPathResource getClassPathResource() {
+		return classpathResource;
 	}
 }
