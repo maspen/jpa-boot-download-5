@@ -1,10 +1,8 @@
-package com.intelligrated.download.mapper.entity.header;
+package com.intelligrated.download.mapper.entity;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
-
-import com.intelligrated.download.mapper.entity.AbstractEntity;
 /**
  * Represents the def_down_up table mapping.
  * 
@@ -26,8 +24,8 @@ import com.intelligrated.download.mapper.entity.AbstractEntity;
  */
 @SuppressWarnings("serial")
 @Entity
-@Table(name = MapperHeaderEntity.tableName)
-public class MapperHeaderEntity extends AbstractEntity {
+@Table(name = MapperEntity.tableName)
+public class MapperEntity extends AbstractEntity {
 	public static final String tableName = "def_down_up";
 	
 	@Column(name = "field_name")

@@ -1,4 +1,4 @@
-package com.intelligrated.download.mapper.repo.header;
+package com.intelligrated.download.mapper.repo;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -13,13 +13,13 @@ import org.springframework.test.context.ContextConfiguration;
 
 import com.intelligrated.download.mapper.AbstractIntegrationTest;
 import com.intelligrated.download.mapper.ApplicationConfig;
-import com.intelligrated.download.mapper.entity.header.MapperHeaderEntity;
-import com.intelligrated.download.mapper.repo.header.MapperHeaderRepository;
+import com.intelligrated.download.mapper.entity.MapperEntity;
+import com.intelligrated.download.mapper.repo.MapperRepository;
 
 @ContextConfiguration(classes = ApplicationConfig.class)
-public class MapperHeaderRepositoryIntTestUsingHOTDataOutOfOrder extends AbstractIntegrationTest {
+public class MapperRepositoryIntTestUsingHOTDataOutOfOrder extends AbstractIntegrationTest {
 	@Autowired
-	MapperHeaderRepository repository;
+	MapperRepository repository;
 	
 	/**
 	 * populates H2 db from src/test/resources/test-HOT-out-of-order-data.sql
@@ -35,35 +35,35 @@ public class MapperHeaderRepositoryIntTestUsingHOTDataOutOfOrder extends Abstrac
 	 */
 	@Test
 	public void getAllRecordsEnsureStartIndexOutOfOrder() {
-		List<MapperHeaderEntity> entityList = repository.getByRecordCode("1");
+		List<MapperEntity> entityList = repository.getByRecordCode("1");
 		Assert.assertNotNull(entityList);
 		Assert.assertEquals(17, entityList.size());
 		
 		Assert.assertFalse(listOutOfOrder(entityList));
 	}
 	
-	private boolean listOutOfOrder(List<MapperHeaderEntity> list) {
-		List<MapperHeaderEntity> tempList = new ArrayList<MapperHeaderEntity>(list);
+	private boolean listOutOfOrder(List<MapperEntity> list) {
+		List<MapperEntity> tempList = new ArrayList<MapperEntity>(list);
 		Collections.sort(tempList, new MapperEntityIndexStartComparator());
 		return tempList.equals(list);
 	}
 	
-	class MapperEntityIndexStartComparator implements Comparator<MapperHeaderEntity> {
+	class MapperEntityIndexStartComparator implements Comparator<MapperEntity> {
 
 		@Override
-		public int compare(MapperHeaderEntity o1, MapperHeaderEntity o2) {
+		public int compare(MapperEntity o1, MapperEntity o2) {
 			return o1.getIndexStart().compareTo(o2.getIndexStart());
 		}
 	}
 	
 	/**
-	 * Want to test {@link MapperHeaderRepository#getByRecordCodeOrderByIndexStart(String)}
+	 * Want to test {@link MapperRepository#getByRecordCodeOrderByIndexStart(String)}
 	 * to ensure that even an out-of-order file that creates the db will not prevent
 	 * entities from being returned in index start order.
 	 */
 	@Test
 	public void getByRecordCodeOrderedByIndexStart() {
-		List<MapperHeaderEntity> entityList = repository.getByRecordCodeOrderByIndexStart("1");
+		List<MapperEntity> entityList = repository.getByRecordCodeOrderByIndexStart("1");
 		Assert.assertTrue(listOutOfOrder(entityList));
 	}
 }

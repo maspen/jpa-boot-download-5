@@ -7,8 +7,8 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 
-import com.intelligrated.download.mapper.entity.header.MapperHeaderEntity;
-import com.intelligrated.download.mapper.repo.header.MapperHeaderRepository;
+import com.intelligrated.download.mapper.entity.MapperEntity;
+import com.intelligrated.download.mapper.repo.MapperRepository;
 
 @SpringBootApplication
 public class Application {
@@ -18,7 +18,7 @@ public class Application {
     }
     
     @Bean
-    public CommandLineRunner demo(MapperHeaderRepository repository) {
+    public CommandLineRunner demo(MapperRepository repository) {
     	return (args) -> {
     		// the data is pulled from src/main/resources/data.sql
 //    		MapperEntity one = new MapperEntity();
@@ -33,9 +33,9 @@ public class Application {
 //    		
 //    		repository.save(one);
     		
-    		List<MapperHeaderEntity> pojoList = repository.getByRecordCode("1");
+    		List<MapperEntity> pojoList = repository.getByRecordCode("1");
     		
-    		for (MapperHeaderEntity pojo : pojoList) {
+    		for (MapperEntity pojo : pojoList) {
 				System.out.println(pojo.toString());
 			}
     	};

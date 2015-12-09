@@ -1,4 +1,4 @@
-package com.intelligrated.download.mapper.repo.header;
+package com.intelligrated.download.mapper.repo;
 
 import java.util.List;
 
@@ -10,14 +10,14 @@ import org.springframework.test.context.ContextConfiguration;
 
 import com.intelligrated.download.mapper.AbstractIntegrationTest;
 import com.intelligrated.download.mapper.ApplicationConfig;
-import com.intelligrated.download.mapper.entity.header.MapperHeaderEntity;
-import com.intelligrated.download.mapper.repo.header.MapperHeaderRepository;
+import com.intelligrated.download.mapper.entity.MapperEntity;
+import com.intelligrated.download.mapper.repo.MapperRepository;
 
 @ContextConfiguration(classes = ApplicationConfig.class)
-public class MapperHeaderRepositoryIntTestUsingHOTData extends AbstractIntegrationTest {
+public class MapperRepositoryIntTestUsingHOTData extends AbstractIntegrationTest {
 
 	@Autowired
-	MapperHeaderRepository repository;
+	MapperRepository repository;
 	
 	/**
 	 * populates H2 db from src/test/resources/test-HOT-data.sql
@@ -29,7 +29,7 @@ public class MapperHeaderRepositoryIntTestUsingHOTData extends AbstractIntegrati
 	
 	@Test
 	public void getByRecordCode() {
-		List<MapperHeaderEntity> entityList = repository.getByRecordCode("1");
+		List<MapperEntity> entityList = repository.getByRecordCode("1");
 		Assert.assertNotNull(entityList);
 		Assert.assertEquals(17, entityList.size());
 	}
