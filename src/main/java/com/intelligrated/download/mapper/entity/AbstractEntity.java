@@ -1,6 +1,7 @@
 package com.intelligrated.download.mapper.entity;
 
 import java.io.Serializable;
+import java.lang.reflect.Field;
 
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -23,4 +24,21 @@ public class AbstractEntity implements Serializable {
 	}
 	
 	// TODO: equals, hash code
+	
+	// for setting in MapperService, need way to pull the 'field_title'
+	// from the entity mapper
+	public Field getField(String fieldName) {
+		Field[] fields = this.getClass().getDeclaredFields();
+		for (Field field : fields) {
+			if(field.getName().equalsIgnoreCase(fieldName.replace("_", ""))) {
+				field.setAccessible(true);
+				return field;
+			}
+		}
+		return null;
+	}
+	
+	public Object getFieldType(Field field) {
+		return field.getType();
+	}
 }

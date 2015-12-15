@@ -33,7 +33,6 @@ public abstract class AbstractIntegrationTest {
 	@Before
 	public void setup() {
 		ResourceDatabasePopulator populator = new ResourceDatabasePopulator();
-		//populator.addScript(new ClassPathResource("test-data.sql"));
 		
 		populator.addScript(getClassPathResource());
 		Connection connection = null;

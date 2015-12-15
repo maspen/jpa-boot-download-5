@@ -9,7 +9,7 @@ import org.springframework.test.context.ContextConfiguration;
 
 import com.intelligrated.download.mapper.AbstractIntegrationTest;
 import com.intelligrated.download.mapper.ApplicationConfig;
-import com.intelligrated.download.mapper.entity.MapperEntity;
+import com.intelligrated.download.mapper.entity.mapper.MapperEntity;
 import com.intelligrated.download.mapper.repo.MapperRepository;
 
 @ContextConfiguration(classes = ApplicationConfig.class)

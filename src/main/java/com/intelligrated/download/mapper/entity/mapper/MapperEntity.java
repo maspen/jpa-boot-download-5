@@ -1,8 +1,11 @@
-package com.intelligrated.download.mapper.entity;
+package com.intelligrated.download.mapper.entity.mapper;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
+
+import com.intelligrated.download.mapper.entity.AbstractEntity;
+import com.intelligrated.download.mapper.entity.EntityTypeEnum;
 /**
  * Represents the def_down_up table mapping.
  * 
@@ -11,6 +14,7 @@ import javax.persistence.Table;
  * 
  * CREATE TABLE def_down_up (
 		id INTEGER NOT NULL PRIMARY KEY,
+		entity_type INTEGER, // added so can differentiate b/w types of Entities (header, order line ...)
 		field_name VARCHAR(30),
 		field_title VARCHAR(30),
 		field_tab_name VARCHAR(30),
@@ -27,6 +31,14 @@ import javax.persistence.Table;
 @Table(name = MapperEntity.tableName)
 public class MapperEntity extends AbstractEntity {
 	public static final String tableName = "def_down_up";
+	
+	/**
+	 * Added column so its easier to differentiate
+	 * b/w the 'types' of Entities in an download file
+	 * 1 = header, 2 = order line, ... 
+	 */
+	@Column(name = "entity_type")
+	private Integer entityType;
 	
 	@Column(name = "field_name")
 	private String fieldName;
@@ -49,7 +61,17 @@ public class MapperEntity extends AbstractEntity {
 	@Column(name = "record_code")
 	private String recordCode;
 	
-		
+	/* Bit finnicky w/ the enums 
+	 * http://stackoverflow.com/questions/2751733/map-enum-in-jpa-with-fixed-values
+	 * */
+	public EntityTypeEnum getEntityType() {
+		return EntityTypeEnum.parse(entityType);
+	}
+
+	public void setEntityType(EntityTypeEnum entityType) {
+		this.entityType = entityType.getValue();
+	}
+
 	public String getFieldName() {
 		return fieldName;
 	}
