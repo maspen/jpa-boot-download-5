@@ -126,20 +126,38 @@ public class MapperService {
 			
 			System.out.println("    fieldTitle: " + fieldTitle);
 			
-			// this is bit scary!!!!
 			Field objectField = entity.getField(fieldTitle);
 			if(null != objectField) {
-				Class fieldClass = entity.getFieldType(objectField).getClass();
 				try {
-					//objectField.set(orderHEntity, objectField.getClass().getConstructor(fieldType.getClass()).newInstance(subStringValue));
-					objectField.set(entity, subStringValue);
-					
-				} catch (IllegalArgumentException | IllegalAccessException | SecurityException e) {
-					System.err.println(e);
+					setFieldOnEntity(objectField, entity, subStringValue);
+				} catch (IllegalArgumentException | IllegalAccessException e) {
+					// TODO Auto-generated catch block
+					System.err.println("ERROR setting field value " + e.getMessage());
 				}
 			} else {
 				System.err.println("FAILED to set " + entity.getClass() + "'" + fieldTitle +"' -- field not found in object");
 			}
+		}
+	}
+
+	private static void setFieldOnEntity(Field objectField, AbstractEntity entity, String subStringValue) throws IllegalArgumentException, IllegalAccessException {
+		// TODO check nothing is null
+		String fieldTypeName = objectField.getType().getCanonicalName();
+		// can't use switch statement on Class
+		
+		System.out.println("   fieldType: " + fieldTypeName);
+		switch(fieldTypeName) {
+		case("java.lang.String"):
+			System.out.println("STRING object type found");
+			objectField.set(entity, subStringValue);
+			break;
+		case("java.lang.Integer"):
+			System.out.println("INTEGER object type found");
+			objectField.set(entity, new Integer(subStringValue));
+			break;
+		default:
+			System.out.println("unknown object type found");
+			break;
 		}
 	}
 	
