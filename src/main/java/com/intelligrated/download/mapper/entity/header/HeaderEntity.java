@@ -26,7 +26,7 @@ public class HeaderEntity extends AbstractEntity implements IEntity {
 	public static final String tableName = "eporder";
 	
 	@Column(name = "seq_num")
-	private Integer sequenceNumber;
+	private Integer seqNum;
 	
 	/** these are "field title"s */
 	@Column(name = "comment_1")
@@ -39,7 +39,7 @@ public class HeaderEntity extends AbstractEntity implements IEntity {
 	private String dlBatch;
 	
 	@Column(name = "c_order_nbr")
-	private String cOrderNumber;
+	private String cOrderNbr;
 	
 	@Column(name = "misc_field_1")
 	private String miscField1;
@@ -60,7 +60,7 @@ public class HeaderEntity extends AbstractEntity implements IEntity {
 	private String comment8;
 	
 	@Column(name = "order_nbr")
-	private String orderNumber;
+	private String orderNbr;
 	
 	@Column(name = "carton_id")
 	private String cartonId;
@@ -77,12 +77,12 @@ public class HeaderEntity extends AbstractEntity implements IEntity {
 	@Column(name = "comment_9")
 	private String comment9;
 
-	public Integer getSequenceNumber() {
-		return sequenceNumber;
+	public Integer getSeqNum() {
+		return seqNum;
 	}
 
-	public void setSequenceNumber(Integer sequenceNumber) {
-		this.sequenceNumber = sequenceNumber;
+	public void setSeqNum(Integer seqNum) {
+		this.seqNum = seqNum;
 	}
 
 	public String getComment1() {
@@ -109,12 +109,12 @@ public class HeaderEntity extends AbstractEntity implements IEntity {
 		this.dlBatch = dlBatch;
 	}
 
-	public String getcOrderNumber() {
-		return cOrderNumber;
+	public String getcOrderNbr() {
+		return cOrderNbr;
 	}
 
-	public void setcOrderNumber(String cOrderNumber) {
-		this.cOrderNumber = cOrderNumber;
+	public void setcOrderNbr(String cOrderNbr) {
+		this.cOrderNbr = cOrderNbr;
 	}
 
 	public String getMiscField1() {
@@ -165,12 +165,12 @@ public class HeaderEntity extends AbstractEntity implements IEntity {
 		this.comment8 = comment8;
 	}
 
-	public String getOrderNumber() {
-		return orderNumber;
+	public String getOrderNbr() {
+		return orderNbr;
 	}
 
-	public void setOrderNumber(String orderNumber) {
-		this.orderNumber = orderNumber;
+	public void setOrderNumber(String orderNbr) {
+		this.orderNbr = orderNbr;
 	}
 
 	public String getCartonId() {

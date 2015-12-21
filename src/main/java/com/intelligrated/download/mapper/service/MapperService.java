@@ -84,11 +84,12 @@ public class MapperService {
 	private static HeaderEntity mapHeader(String line) {
 		HeaderEntity headerEntity = new HeaderEntity();
 		// increment sequence number before setting
-		headerEntity.setSequenceNumber(sequenceNumber.incrementAndGet());
+		headerEntity.setSeqNum(sequenceNumber.incrementAndGet());
 		
 		// use headerMapperList
+		setField(line, headerEntity, headerMapperList);
 		
-		return null;
+		return headerEntity;
 	}
 	
 	private static OrderEntity mapOrder(String line) {
