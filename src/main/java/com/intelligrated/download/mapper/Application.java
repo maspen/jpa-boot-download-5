@@ -69,8 +69,8 @@ public class Application implements CommandLineRunner {
 				.map(MapperService::map)
 				.collect(Collectors.toList());
 		
-//		EPOrderEntity entity = null;
-//		lines.forEach((line) -> { entity = mapperService.map(line); });
+		// sanity check
+		
 		
 		lines.close();
 	}

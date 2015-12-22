@@ -7,12 +7,20 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.MappedSuperclass;
+import javax.persistence.SequenceGenerator;
 
 @SuppressWarnings("serial")
 @MappedSuperclass
 public class AbstractEntity implements Serializable {
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+//	@GeneratedValue(strategy = GenerationType.AUTO)
+//	@Column(name = "id", nullable = false, unique = true)
+//    @GeneratedValue(strategy = GenerationType.IDENTITY)
+	
+	//@SequenceGenerator(name="identifier", sequenceName="mytable_id_seq", allocationSize=1)  
+	//@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="identifier")	
+	// Replace mytable_id_seq with the name of the sequence that generates your id.
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Long id;
 
 	public Long getId() {
