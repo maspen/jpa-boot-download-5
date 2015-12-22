@@ -45,7 +45,7 @@ public class InfrastructureConfig {
 	public LocalContainerEntityManagerFactoryBean entityManagerFactory() {
 		HibernateJpaVendorAdapter vendorAdapter = new HibernateJpaVendorAdapter();
 		vendorAdapter.setDatabase(Database.H2);
-		vendorAdapter.setGenerateDdl(true);
+		vendorAdapter.setGenerateDdl(true); // ~ hibernate.hbm2ddl.auto
 
 		LocalContainerEntityManagerFactoryBean factory = new LocalContainerEntityManagerFactoryBean();
 		factory.setJpaVendorAdapter(vendorAdapter);

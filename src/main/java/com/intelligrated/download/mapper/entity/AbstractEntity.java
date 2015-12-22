@@ -12,15 +12,23 @@ import javax.persistence.SequenceGenerator;
 @SuppressWarnings("serial")
 @MappedSuperclass
 public class AbstractEntity implements Serializable {
-	@Id
+	//@Id
 //	@GeneratedValue(strategy = GenerationType.AUTO)
 //	@Column(name = "id", nullable = false, unique = true)
 //    @GeneratedValue(strategy = GenerationType.IDENTITY)
 	
-	//@SequenceGenerator(name="identifier", sequenceName="mytable_id_seq", allocationSize=1)  
-	//@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="identifier")	
+	//@SequenceGenerator(name="identifier", sequenceName="mytable_id_seq", allocationSize=100)  
+//	@SequenceGenerator(name="seq", sequenceName="mytable_id_seq", initialValue=1, allocationSize=100)
+//	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="seq")	
 	// Replace mytable_id_seq with the name of the sequence that generates your id.
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
+//	@Id
+//	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	
+//	@SequenceGenerator(name="Emp_Gen", sequenceName="Emp_Seq")
+//	@Id @GeneratedValue(generator="Emp_Gen")
+	 @Id
+	 @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "prooduct_id_seq")
+	 @SequenceGenerator(name="prooduct_id_seq", sequenceName = "PRODUCT_ID_SEQ", allocationSize = 100)
 	private Long id;
 
 	public Long getId() {
