@@ -1,7 +1,15 @@
 package com.intelligrated.download.mapper.converter;
 
 import org.springframework.core.convert.converter.Converter;
+import org.springframework.data.convert.ReadingConverter;
 
+/**
+ * Reading (from download file) converter which converts from String data to
+ * Boolean objects.
+ * 
+ * @author matt.aspen
+ */
+@ReadingConverter
 public class StringToBooleanConverter implements Converter<String, Boolean> {
 
 	/**
@@ -26,5 +34,4 @@ public class StringToBooleanConverter implements Converter<String, Boolean> {
 		}
 		return Boolean.valueOf(source);
 	}
-
 }

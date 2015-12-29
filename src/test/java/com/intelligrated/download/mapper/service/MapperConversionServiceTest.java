@@ -1,54 +1,37 @@
 package com.intelligrated.download.mapper.service;
 
-import javax.annotation.Resource;
+import java.time.LocalDateTime;
 
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
-import org.springframework.core.convert.converter.Converter;
+import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.SpringApplicationConfiguration;
 import org.springframework.core.convert.support.GenericConversionService;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import com.intelligrated.download.mapper.converter.StringToIntegerConverter;
+import com.intelligrated.download.mapper.Application;
 
-public class MapperConversionServiceTest {
+import junit.framework.TestCase;
+
+@RunWith(SpringJUnit4ClassRunner.class)
+@SpringApplicationConfiguration(classes = Application.class)
+public class MapperConversionServiceTest extends TestCase {
 	
-	@Resource(name = "defaultConversionService")
-	GenericConversionService conversionService; // = new GenericConversionService();
+	@Autowired
+	MapperConversionService mapperConversionService;
 	
 	@Before
 	public void setup() {
-		conversionService = new GenericConversionService();
-		
-		conversionService.addConverter(new Converter<String, Boolean>() {
-			@Override
-			public Boolean convert(String source) {
-				if(source.length() == 0) {
-					return null;
-				}
-				if(source.equalsIgnoreCase("")) {
-					return null;
-				}
-				if(source.equalsIgnoreCase("t")) {
-					source = "true";
-				}
-				return Boolean.valueOf(source);
-			}
-			
-		});
-		
-		conversionService.addConverter(new StringToIntegerConverter());
+		mapperConversionService = new MapperConversionService();
 	}
-
+	
 	@Test
-	public void test() {
-		stringToBoolean();
+	public void serviceHasRegisteredConverters() {
+		GenericConversionService genericConversionService = mapperConversionService.getGenericConversionService();
+		Assert.assertTrue( genericConversionService.canConvert(String.class, Boolean.class) );
+		Assert.assertTrue( genericConversionService.canConvert(String.class, Integer.class) );
+		Assert.assertTrue( genericConversionService.canConvert(String.class, LocalDateTime.class) );
 	}
-	
-	
-	private void stringToBoolean() {
-		String string = "true";
-		Boolean data = conversionService.convert(string, Boolean.class);
-		Assert.assertTrue(data);
-	}
-
 }
