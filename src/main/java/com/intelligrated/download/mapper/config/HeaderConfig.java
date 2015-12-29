@@ -22,13 +22,13 @@ import org.springframework.orm.jpa.vendor.AbstractJpaVendorAdapter;
 import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
 
 import com.intelligrated.download.mapper.entity.HeaderEntity;
+import com.intelligrated.download.mapper.repo.HeaderRepository;
 
 @Configuration
-//@ComponentScan("com.intelligrated.download")
 @EnableJpaRepositories(
 		entityManagerFactoryRef = "headerEntityManager",
 		transactionManagerRef = "headerTransactionManager",
-		basePackageClasses = HeaderEntity.class)
+		basePackageClasses = {HeaderEntity.class, HeaderRepository.class})
 public class HeaderConfig {
 
 	@Autowired(required = false)

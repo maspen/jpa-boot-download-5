@@ -20,12 +20,13 @@ import org.springframework.orm.jpa.vendor.AbstractJpaVendorAdapter;
 import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
 
 import com.intelligrated.download.mapper.entity.MapperEntity;
+import com.intelligrated.download.mapper.repo.MapperRepository;
 
 @Configuration
 @EnableJpaRepositories(
 		entityManagerFactoryRef = "mapperEntityManager",
 		transactionManagerRef = "mapperTransactionManager",
-		basePackageClasses = MapperEntity.class)
+		basePackageClasses = { MapperEntity.class, MapperRepository.class })
 public class MapperConfig {
 	@Autowired(required = false)
 	private PersistenceUnitManager persistenceUnitManager;
