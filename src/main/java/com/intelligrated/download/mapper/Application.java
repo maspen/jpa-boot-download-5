@@ -11,9 +11,7 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
-import com.intelligrated.download.mapper.entity.AbstractEntity;
 import com.intelligrated.download.mapper.entity.IEntity;
-import com.intelligrated.download.mapper.entity.header.HeaderEntity;
 import com.intelligrated.download.mapper.entity.mapper.MapperEntity;
 import com.intelligrated.download.mapper.repo.MapperRepository;
 import com.intelligrated.download.mapper.service.FileReaderService;

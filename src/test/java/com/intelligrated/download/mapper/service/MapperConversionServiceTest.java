@@ -22,10 +22,10 @@ public class MapperConversionServiceTest extends TestCase {
 	@Autowired
 	MapperConversionService mapperConversionService;
 	
-	@Before
-	public void setup() {
-		mapperConversionService = new MapperConversionService();
-	}
+//	@Before
+//	public void setup() {
+//		mapperConversionService = new MapperConversionService();
+//	}
 	
 	@Test
 	public void serviceHasRegisteredConverters() {
@@ -33,5 +33,25 @@ public class MapperConversionServiceTest extends TestCase {
 		Assert.assertTrue( genericConversionService.canConvert(String.class, Boolean.class) );
 		Assert.assertTrue( genericConversionService.canConvert(String.class, Integer.class) );
 		Assert.assertTrue( genericConversionService.canConvert(String.class, LocalDateTime.class) );
+	}
+	
+	@Test
+	public void nullFromReturnsNull() {
+		Object nullFrom = null;
+		Object returnedObject = mapperConversionService.convert(nullFrom, String.class);
+		Assert.assertNull(returnedObject);
+	}
+	
+	@Test
+	public void nullClassThrowsIllegalArgumentException() {
+		Object from = "true";
+		Class<?> nullClass = null;
+		Object returnedObject = null;
+		try {
+			returnedObject = mapperConversionService.convert(from, nullClass);
+		} catch (Exception e) {
+			Assert.assertEquals(IllegalArgumentException.class, e.getClass());
+		}
+		Assert.assertNull(returnedObject);
 	}
 }

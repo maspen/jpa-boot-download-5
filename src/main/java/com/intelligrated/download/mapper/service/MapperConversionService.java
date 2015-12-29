@@ -68,6 +68,25 @@ public class MapperConversionService {
 					+ "' has to be of type Converter, ConverterFactory or GenericeConverter");
 		}
 	}
+	
+	/**
+	 * Converts 'from' to desired Object/type
+	 * @param from
+	 * @param targetType - desired return Object/type
+	 * 
+	 * @return Object represents the output type after the conversion
+	 * 
+	 * NOTE: uncaught exceptions - from genericConversionService:
+	 * ConversionException - if a conversion exception occurred
+	 * IllegalArgumentException - if targetType is null
+	 */
+	public Object convert(Object from, Class<?> targetType) {
+		if(null == from) { 
+			return null;
+		}
+		
+		return genericConversionService.convert(from, targetType);
+	}
 
 	public List<Object> getConverterList() {
 		return converterList;
