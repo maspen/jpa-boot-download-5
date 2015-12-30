@@ -50,7 +50,7 @@ public class MapperConfig {
 		return builder
 				.dataSource(mapperDataSource())
 				.packages(MapperEntity.class)
-				.persistenceUnit("orders")
+				.persistenceUnit("mappers")
 				.build();
 	}
 
