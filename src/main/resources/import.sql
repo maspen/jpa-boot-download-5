@@ -1,4 +1,4 @@
-/* Header */
+/* Header - 16 values */
 /*INSERT INTO mappers (entity_type, field_name, field_title, field_tab_name, index_start, index_length, data_type, record_code) VALUES (1, 'rectype', '1', 'LITERAL(0-1)', 0, 1, 'char', '1');*/
 INSERT INTO mappers (entity_type, field_name, field_title, field_tab_name, index_start, index_length, data_type, record_code) VALUES (1, 'ITEMDWN', 'comment_1', 'eporder', 1, 7, 'char', '1');
 INSERT INTO mappers (entity_type, field_name, field_title, field_tab_name, index_start, index_length, data_type, record_code) VALUES (1, 'ADD', 'comment_2', 'eporder', 8, 3, 'char', '1');
@@ -16,7 +16,7 @@ INSERT INTO mappers (entity_type, field_name, field_title, field_tab_name, index
 INSERT INTO mappers (entity_type, field_name, field_title, field_tab_name, index_start, index_length, data_type, record_code) VALUES (1, 'future1', 'misc_field_2', 'eporder', 87, 8, 'char', '1');
 INSERT INTO mappers (entity_type, field_name, field_title, field_tab_name, index_start, index_length, data_type, record_code) VALUES (1, 'Future2', 'misc_field_3', 'eporder', 95, 7, 'char', '1');
 INSERT INTO mappers (entity_type, field_name, field_title, field_tab_name, index_start, index_length, data_type, record_code) VALUES (1, 'wave id', 'comment_9', 'eporder', 102, 8, 'char', '1');
-/* Order Line Item */
+/* Order Line Item - 10 values*/
 /*INSERT INTO mappers (entity_type, field_name, field_title, field_tab_name, index_start, index_length, data_type, record_code) VALUES (2, 'rectype', '2', 'LITERAL(0-1)', 0, 1, 'char', 1);*/
 INSERT INTO mappers (entity_type, field_name, field_title, field_tab_name, index_start, index_length, data_type, record_code) VALUES (2, 'l item nbr', 'misc_field_1', 'orderh', 1, 19, 'char', 1);
 INSERT INTO mappers (entity_type, field_name, field_title, field_tab_name, index_start, index_length, data_type, record_code) VALUES (2, 'Location', 'slot_name', 'orderh', 20, 9, 'char', 1);

@@ -13,6 +13,7 @@ import org.springframework.boot.test.SpringApplicationConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import com.intelligrated.download.mapper.Application;
+import com.intelligrated.download.mapper.entity.EntityTypeEnum;
 import com.intelligrated.download.mapper.entity.MapperEntity;
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -42,5 +43,11 @@ public class MapperRepositoryTest {
 		assertThat(mapperEntity.getId(), is(nullValue()));
 		MapperEntity savedEntity = mapperRepository.save(mapperEntity);
 		assertThat(savedEntity.getId(), is(not(nullValue())));
+	}
+	
+	@Test
+	public void getByEntityType() {
+		assertThat(mapperRepository.getByEntityType(EntityTypeEnum.HEADER.getValue()), is(not(nullValue())));
+		assertThat(mapperRepository.getByEntityType(EntityTypeEnum.ORDER_LINE.getValue()), is(not(nullValue())));
 	}
 }
