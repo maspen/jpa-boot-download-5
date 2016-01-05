@@ -7,7 +7,6 @@ import java.util.concurrent.atomic.AtomicInteger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.intelligrated.download.mapper.converter.StringToBooleanConverter;
 import com.intelligrated.download.mapper.converter.StringToIntegerConverter;
 import com.intelligrated.download.mapper.converter.StringToLocalDateTimeConverter;
 import com.intelligrated.download.mapper.entity.EntityTypeEnum;
@@ -20,8 +19,6 @@ import com.intelligrated.download.mapper.repo.MapperRepository;
 //@Transactional -- prevents from autowiring in Application
 public class MapperService {
 	private final MapperRepository mapperRepository;
-	
-	//@Autowired
 	private DataTypeConversionService dataTypeConversionService;
 	
 	/**
@@ -70,7 +67,8 @@ public class MapperService {
 		converterList = new ArrayList<Object>(){{
 			// add(new StringToBooleanConverter());
 			add(new StringToIntegerConverter());
-			// add(new StringToLocalDateTimeConverter());
+			// NOTE: below is added for mock testing
+			add(new StringToLocalDateTimeConverter());
 		}};
 		
 		dataTypeConversionService.addConverters(converterList);
