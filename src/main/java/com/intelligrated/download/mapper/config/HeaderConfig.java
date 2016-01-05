@@ -33,7 +33,7 @@ public class HeaderConfig {
 	@Autowired(required = false)
 	private PersistenceUnitManager persistenceUnitManager;
 
-	@Bean
+	@Bean(name="headerJpaProperties")
 	@ConfigurationProperties("app.header.jpa")
 	public JpaProperties headerJpaProperties() {
 		return new JpaProperties();

@@ -29,7 +29,7 @@ public class DataTypeConversionService {
 	
 	public DataTypeConversionService(List<Object> converters) {
 //		/**
-//		 * TODO: standardize that 'convertes' will populate converterList
+//		 * TODO: standardize that 'converters' will populate converterList
 //		 * NOT hard-code here
 //		 */
 //		converterList.add(new StringToBooleanConverter());

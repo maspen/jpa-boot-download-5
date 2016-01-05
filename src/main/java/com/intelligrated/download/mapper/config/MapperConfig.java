@@ -31,7 +31,7 @@ public class MapperConfig {
 	@Autowired(required = false)
 	private PersistenceUnitManager persistenceUnitManager;
 
-	@Bean
+	@Bean(name="mapperJpaProperties")
 	@ConfigurationProperties("app.mapper.jpa")
 	public JpaProperties mapperJpaProperties() {
 		return new JpaProperties();
