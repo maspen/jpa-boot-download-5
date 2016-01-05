@@ -1,14 +1,18 @@
 package com.intelligrated.download.mapper.service;
 
+import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.intelligrated.download.mapper.converter.StringToIntegerConverter;
 import com.intelligrated.download.mapper.converter.StringToLocalDateTimeConverter;
+import com.intelligrated.download.mapper.entity.AbstractEntity;
 import com.intelligrated.download.mapper.entity.EntityTypeEnum;
 import com.intelligrated.download.mapper.entity.HeaderEntity;
 import com.intelligrated.download.mapper.entity.IEntity;
@@ -26,8 +30,11 @@ public class MapperService {
 	 * header entities and order entities. This splits
 	 * them up (based on 'type' see {@link EntityTypeEnum})
 	 */
-	private List<MapperEntity> headerMapperList;
-	private List<MapperEntity> orderMapperList;
+	private static List<MapperEntity> headerMapperList;
+	private static List<MapperEntity> orderMapperList;
+	
+	private static List<MapperEntity> orderLMapperList;
+	private static List<MapperEntity> orderHMapperList;
 	
 	/**
 	 * Associates a header with order line(s).
@@ -54,7 +61,23 @@ public class MapperService {
 	 */
 	private void initializeMapperLists() {
 		headerMapperList = mapperRepository.getByEntityType(EntityTypeEnum.HEADER.getValue());
+		System.out.println("   headerMapperList size: " + headerMapperList.size());
+		
 		orderMapperList = mapperRepository.getByEntityType(EntityTypeEnum.ORDER_LINE.getValue());
+		System.out.println("   orderMapperList size: " + orderMapperList.size());
+		
+		/**
+		 * split out the order_l and order_h mappings
+		 */
+		Stream<MapperEntity> orderHMapperListStream = orderMapperList.stream();
+		orderHMapperList = orderHMapperListStream.filter(m -> m.getFieldTableName().equalsIgnoreCase("orderh")).collect(Collectors.toList());
+		orderHMapperListStream.close();
+		System.out.println("   orderHMapperList size: " + orderHMapperList.size());
+		
+		Stream<MapperEntity> orderLMapperListStream = orderMapperList.stream();
+		orderLMapperList = orderLMapperListStream.filter(m -> m.getFieldTableName().equalsIgnoreCase("orderl")).collect(Collectors.toList());
+		orderLMapperListStream.close();
+		System.out.println("   orderLMapperList size :" + orderLMapperList.size());
 	}
 	
 	/**
@@ -95,11 +118,51 @@ public class MapperService {
 	}
 	
 	private static HeaderEntity mapHeaderEntity(String line) {
-		return null;
+		HeaderEntity headerEntity = new HeaderEntity();
+		headerEntity.setSeqNum(sequenceNumber.incrementAndGet());
+		
+		setField(line, headerEntity, headerMapperList);
+		
+		return headerEntity;
 	}
 	
 	private static List<IEntity> mapOrderEntity(String line) {
 		return null;
+	}
+	
+	private static void setField(String line, AbstractEntity entity, List<MapperEntity> mapperEntityList) {
+		// iterate over the mapper list
+		for (MapperEntity mapperEntity : mapperEntityList) {
+			// for each 'mapping', pull out the sub String
+			String subString = line.substring(mapperEntity.getIndexStart(), (mapperEntity.getIndexStart() + mapperEntity.getIndexLength()));
+			System.out.println("     subString " + subString);
+			
+			// get the field 'name' from mapperEntity to see which field on the
+			// table entity the subString value needs to be set on
+			String fieldName = mapperEntity.getFieldName();
+			System.out.println("     fieldName " + fieldName);
+			
+			// get the PoJo field for this fieldName
+			Field javaField = entity.getField(fieldName);
+			if(null != javaField) {
+				// set the value on the field
+				setFieldOnEntity(javaField, mapperEntity, subString);
+			} else {
+				// TODO: handle error situation
+				System.err.println("FAILED to set field '" + fieldName +"' on class " + entity.getClass());
+			}
+		}
+	}
+	
+	private static void setFieldOnEntity(Field javaField, AbstractEntity entity, String subString) {
+		Class<?> fieldClass = javaField.getType();
+		Object convertedObject = DataTypeConversionService.convert(subString, fieldClass);
+		try {
+			javaField.set(entity, convertedObject);
+		} catch (IllegalArgumentException | IllegalAccessException e) {
+			// TODO Auto-generated catch block
+			System.err.println("   FAILED to set '" + subString + "' on field " + javaField.getName());
+		}
 	}
 
 	public List<MapperEntity> getMappers() {

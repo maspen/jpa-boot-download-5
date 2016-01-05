@@ -17,7 +17,7 @@ import org.springframework.stereotype.Service;
  */
 @Service
 public class DataTypeConversionService {
-	private GenericConversionService genericConversionService = new GenericConversionService();
+	private static GenericConversionService genericConversionService = new GenericConversionService();
 	
 	public DataTypeConversionService() {
 		this(new ArrayList<Object>());
@@ -67,7 +67,7 @@ public class DataTypeConversionService {
 	 * ConversionException - if a conversion exception occurred
 	 * IllegalArgumentException - if targetType is null
 	 */
-	public Object convert(Object from, Class<?> targetType) {
+	public static Object convert(Object from, Class<?> targetType) {
 		if(null == from) { 
 			return null;
 		}
