@@ -1,8 +1,5 @@
 package com.intelligrated.download.mapper;
 
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.annotation.AnnotationConfigApplicationContext;
-
 public class ApplicationConfigTest {
 
 //	@Test

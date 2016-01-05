@@ -17,7 +17,10 @@ public class StringToIntegerConverter implements Converter<String, Integer> {
 	 */
 	@Override
 	public Integer convert(String source) {
-		if(source.length() == 0) {
+		if(null == source) {
+			return null;
+		}
+		if(0 == source.length()) {
 			return null;
 		}
 		if(source.equalsIgnoreCase("")) {

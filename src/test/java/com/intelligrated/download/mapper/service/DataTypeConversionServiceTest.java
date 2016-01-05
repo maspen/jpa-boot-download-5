@@ -48,10 +48,11 @@ public class DataTypeConversionServiceTest {
 		Assert.assertTrue(newDataTypeConversionService instanceof DataTypeConversionService);
 	}
 	
-	@Test
-	public void beforeConvertersSetReturnsNullForConversion() {
-		assertThat(dataTypeConversionService.convert("String", Integer.class), is(nullValue()));
-	}
+//	@Test
+//	public void beforeConvertersSetReturnsNullForConversion() {
+//		assertThat(dataTypeConversionService.getGenericConversionService().canConvert(String.class, Integer.class), is(false));
+//		assertThat(dataTypeConversionService.convert("1", Integer.class), is(nullValue()));
+//	}
 	
 	@Test
 	public void afterSettingConvertersCanConvert() {
