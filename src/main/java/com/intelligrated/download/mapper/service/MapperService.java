@@ -7,11 +7,13 @@ import java.util.concurrent.atomic.AtomicInteger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.intelligrated.download.mapper.converter.StringToBooleanConverter;
+import com.intelligrated.download.mapper.converter.StringToIntegerConverter;
+import com.intelligrated.download.mapper.converter.StringToLocalDateTimeConverter;
 import com.intelligrated.download.mapper.entity.EntityTypeEnum;
 import com.intelligrated.download.mapper.entity.HeaderEntity;
 import com.intelligrated.download.mapper.entity.IEntity;
 import com.intelligrated.download.mapper.entity.MapperEntity;
-import com.intelligrated.download.mapper.entity.Order_H_Entity;
 import com.intelligrated.download.mapper.repo.MapperRepository;
 
 @Service("mapperService")
@@ -19,13 +21,16 @@ import com.intelligrated.download.mapper.repo.MapperRepository;
 public class MapperService {
 	private final MapperRepository mapperRepository;
 	
+	//@Autowired
+	private DataTypeConversionService dataTypeConversionService;
+	
 	/**
 	 * The "mappers" repo (h2) contains mapping for both
 	 * header entities and order entities. This splits
 	 * them up (based on 'type' see {@link EntityTypeEnum})
 	 */
-	List<MapperEntity> headerMapperList;
-	List<MapperEntity> orderMapperList;
+	private List<MapperEntity> headerMapperList;
+	private List<MapperEntity> orderMapperList;
 	
 	/**
 	 * Associates a header with order line(s).
@@ -33,20 +38,42 @@ public class MapperService {
 	 */
 	private static AtomicInteger sequenceNumber = new AtomicInteger(0);
 	
+	/**
+	 * List that stores the data type converters.
+	 */
+	private List<Object> converterList;
+	
 	@Autowired
-	public MapperService(MapperRepository mapperRepository) {
+	public MapperService(MapperRepository mapperRepository, DataTypeConversionService dataTypeConversionService) {
 		this.mapperRepository = mapperRepository;
+		this.dataTypeConversionService = dataTypeConversionService;
 		
 		initializeMapperLists();
+		initializeDataTypeConversionService();
 	}
-	
+
 	/**
-	 * Pulls from mappers repo and sets up the two lists of mappings
+	 * Pulls from mappers repo and sets up the lists of mappings
 	 */
 	private void initializeMapperLists() {
 		headerMapperList = mapperRepository.getByEntityType(EntityTypeEnum.HEADER.getValue());
 		orderMapperList = mapperRepository.getByEntityType(EntityTypeEnum.ORDER_LINE.getValue());
+	}
+	
+	/**
+	 * Sets the types for data types the {@link DataTypeConversionService}
+	 * will have to convert to (from String)
+	 */
+	@SuppressWarnings("serial")
+	private void initializeDataTypeConversionService() {
+		// TODO configurable way to set this list up
+		converterList = new ArrayList<Object>(){{
+			// add(new StringToBooleanConverter());
+			add(new StringToIntegerConverter());
+			// add(new StringToLocalDateTimeConverter());
+		}};
 		
+		dataTypeConversionService.addConverters(converterList);
 	}
 	
 	/**
@@ -56,7 +83,6 @@ public class MapperService {
 	 * @return List of {@link IEntity}
 	 */
 	public static List<IEntity> map(String line) {
-		// TODO: has to be a better way
 		List<IEntity> entityList = new ArrayList<IEntity>();
 		
 		if(line.startsWith("1")) {
@@ -66,6 +92,7 @@ public class MapperService {
 			entityList.addAll(mapOrderEntity(line));
 			return entityList;
 		}
+		
 		return null;
 	}
 	

@@ -35,4 +35,8 @@ public class MapperServiceTest {
 		assertThat(mapperService.getOrderMapperList(), is(not(nullValue())));
 		Assert.assertTrue(mapperService.getOrderMapperList().size() == expectedNumberOrderLineMappers);
 	}
+	
+	public void onInitializationDataTypeConversionStringToIntegerSet() {
+		
+	}
 }

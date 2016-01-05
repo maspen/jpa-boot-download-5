@@ -9,10 +9,6 @@ import org.springframework.core.convert.converter.GenericConverter;
 import org.springframework.core.convert.support.GenericConversionService;
 import org.springframework.stereotype.Service;
 
-import com.intelligrated.download.mapper.converter.StringToBooleanConverter;
-import com.intelligrated.download.mapper.converter.StringToIntegerConverter;
-import com.intelligrated.download.mapper.converter.StringToLocalDateTimeConverter;
-
 /**
  * On download, String values need to be converted to other data types.
  * TODO: on upload, the opposite is true

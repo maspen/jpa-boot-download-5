@@ -10,7 +10,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = MapperEntity.tableName)
-public class MapperEntity implements IEntity, Serializable {
+public class MapperEntity extends AbstractEntity implements IEntity, Serializable {
 	private static final long serialVersionUID = -2625417579365514510L;
 
 	public static final String tableName = "mappers";
