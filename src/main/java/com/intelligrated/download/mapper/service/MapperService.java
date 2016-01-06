@@ -17,6 +17,8 @@ import com.intelligrated.download.mapper.entity.EntityTypeEnum;
 import com.intelligrated.download.mapper.entity.HeaderEntity;
 import com.intelligrated.download.mapper.entity.IEntity;
 import com.intelligrated.download.mapper.entity.MapperEntity;
+import com.intelligrated.download.mapper.entity.Order_H_Entity;
+import com.intelligrated.download.mapper.entity.Order_L_Entity;
 import com.intelligrated.download.mapper.repo.MapperRepository;
 
 @Service("mapperService")
@@ -127,7 +129,17 @@ public class MapperService {
 	}
 	
 	private static List<IEntity> mapOrderEntity(String line) {
-		return null;
+		List<IEntity> entityList = new ArrayList<>();
+		// order h
+		Order_H_Entity orderHEntity = new Order_H_Entity();
+		
+		entityList.add(orderHEntity);
+		// order l
+		Order_L_Entity orderLEntity = new Order_L_Entity();
+		
+		entityList.add(orderLEntity);
+		
+		return entityList;
 	}
 	
 	private static void setField(String line, AbstractEntity entity, List<MapperEntity> mapperEntityList) {
@@ -139,17 +151,18 @@ public class MapperService {
 			
 			// get the field 'name' from mapperEntity to see which field on the
 			// table entity the subString value needs to be set on
-			String fieldName = mapperEntity.getFieldName();
-			System.out.println("     fieldName " + fieldName);
+			String fieldTitle = mapperEntity.getFieldTitle();
+			System.out.println("     fieldTitle " + fieldTitle);
+			System.out.println("---------------------------");
 			
 			// get the PoJo field for this fieldName
-			Field javaField = entity.getField(fieldName);
+			Field javaField = entity.getField(fieldTitle);
 			if(null != javaField) {
 				// set the value on the field
-				setFieldOnEntity(javaField, mapperEntity, subString);
+				setFieldOnEntity(javaField, entity, subString);
 			} else {
 				// TODO: handle error situation
-				System.err.println("FAILED to set field '" + fieldName +"' on class " + entity.getClass());
+				System.err.println("FAILED to set field '" + fieldTitle +"' on class " + entity.getClass());
 			}
 		}
 	}
@@ -161,7 +174,8 @@ public class MapperService {
 			javaField.set(entity, convertedObject);
 		} catch (IllegalArgumentException | IllegalAccessException e) {
 			// TODO Auto-generated catch block
-			System.err.println("   FAILED to set '" + subString + "' on field " + javaField.getName());
+			System.err.println("   FAILED to set value '" + subString + "' on field " + javaField.getName() +
+					"\nreason: " + e.getMessage());
 		}
 	}
 

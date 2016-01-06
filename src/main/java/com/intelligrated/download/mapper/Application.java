@@ -46,6 +46,11 @@ public class Application implements CommandLineRunner {
 				.map(MapperService::map)
 				.collect(Collectors.toList());
 		
+		// TODO: persist into appropriate tables contents of entityList
+		
 		lines.close();
+		
+		// TODO: find out what is running/hanging that prevents app. from exiting w/o this
+		System.exit(1);
 	}
 }
