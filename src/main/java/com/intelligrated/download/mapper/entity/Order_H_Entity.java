@@ -10,7 +10,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = Order_H_Entity.tableName)
-public class Order_H_Entity extends AbstractEntity implements IEntity, Serializable {
+public class Order_H_Entity implements IEntity, Serializable {
 	private static final long serialVersionUID = 4634354258756785159L;
 	
 	public static final String tableName = "orderh";

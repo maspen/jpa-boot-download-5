@@ -10,7 +10,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = HeaderEntity.tableName)
-public class HeaderEntity extends AbstractEntity implements IEntity, Serializable {
+public class HeaderEntity implements IEntity, Serializable {
 	private static final long serialVersionUID = 892324898803860497L;
 	
 	public static final String tableName = "headers";

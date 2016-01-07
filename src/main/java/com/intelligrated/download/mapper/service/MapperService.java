@@ -12,7 +12,6 @@ import org.springframework.stereotype.Service;
 
 import com.intelligrated.download.mapper.converter.StringToIntegerConverter;
 import com.intelligrated.download.mapper.converter.StringToLocalDateTimeConverter;
-import com.intelligrated.download.mapper.entity.AbstractEntity;
 import com.intelligrated.download.mapper.entity.EntityTypeEnum;
 import com.intelligrated.download.mapper.entity.HeaderEntity;
 import com.intelligrated.download.mapper.entity.IEntity;
@@ -152,7 +151,7 @@ public class MapperService {
 		return entityList;
 	}
 	
-	private static void setField(String line, AbstractEntity entity, List<MapperEntity> mapperEntityList) {
+	private static void setField(String line, IEntity entity, List<MapperEntity> mapperEntityList) {
 		// iterate over the mapper list
 		for (MapperEntity mapperEntity : mapperEntityList) {
 			// for each 'mapping', pull out the sub String
@@ -177,7 +176,7 @@ public class MapperService {
 		}
 	}
 	
-	private static void setFieldOnEntity(Field javaField, AbstractEntity entity, String subString) {
+	private static void setFieldOnEntity(Field javaField, IEntity entity, String subString) {
 		Class<?> fieldClass = javaField.getType();
 		Object convertedObject = DataTypeConversionService.convert(subString, fieldClass);
 		try {
