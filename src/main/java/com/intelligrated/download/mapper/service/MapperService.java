@@ -35,8 +35,8 @@ public class MapperService {
 	private static List<MapperEntity> headerMapperList;
 	private static List<MapperEntity> orderMapperList;
 	
-	private static List<MapperEntity> orderLMapperList;
 	private static List<MapperEntity> orderHMapperList;
+	private static List<MapperEntity> orderLMapperList;
 	
 	/**
 	 * Associates a header with order line(s).
@@ -109,9 +109,11 @@ public class MapperService {
 		List<IEntity> entityList = new ArrayList<IEntity>();
 		
 		if(line.startsWith("1")) {
+			System.out.println("  starting to map Header");
 			entityList.add(mapHeaderEntity(line));
 			return entityList;
 		} else if(line.startsWith("2")) {
+			System.out.println("   starting to map Order (H & L)");
 			entityList.addAll(mapOrderEntity(line));
 			return entityList;
 		}
@@ -132,11 +134,19 @@ public class MapperService {
 		List<IEntity> entityList = new ArrayList<>();
 		// order h
 		Order_H_Entity orderHEntity = new Order_H_Entity();
-		
+		System.out.println("-----------------------");
+		System.out.println("    mapping order H");
+		System.out.println("-----------------------");
+		orderHEntity.setSeqNumber(sequenceNumber.get());
+		setField(line, orderHEntity, orderHMapperList);
 		entityList.add(orderHEntity);
+		
 		// order l
 		Order_L_Entity orderLEntity = new Order_L_Entity();
-		
+		System.out.println("     mapping order L");
+		System.out.println("-----------------------");
+		orderLEntity.setSeqNumber(sequenceNumber.get());
+		setField(line, orderLEntity, orderLMapperList);
 		entityList.add(orderLEntity);
 		
 		return entityList;
